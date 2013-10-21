@@ -1,7 +1,44 @@
+@**
+@(companies: List[Company])
+
+@main("Baker & McKenzie") {
+
+    <div class = "body-title">
+    	<p>	
+    		There is an established consumer electrical retail market in China,
+    		consisting basically of two market leaders Suning Appliance Co. Ltd
+    		("Suning") and Gome Electrical Appliance Holding Ltd ("Gome") and
+    		various other companies. 
+    	</p>
+    </div>
+    
+    <div class = "body-page">
+	    <table class = "body-page-table">
+	    	<tr>
+	    		<th>No.</th>
+	    		<th>Company Name</th>
+	    		<th>Country/Region</th>
+	    	</tr>
+	    		@companies.map { company =>
+	    			<tr>
+	    			<td>@company.getCompanyId()</td>
+	    			<td><a href = "/baker/plireport/@company.getCompanyId()">
+	    				@company.getName()
+	    				</a>
+	    			</td>
+	    			<td>@company.getCountry()</td>
+	    			</tr>
+	    		}
+	    </table>
+    </div>
+
+}
+**@
+
 @(message: String)
 
-@main("Welcome to Play") {
+@main("Baker & McKenzie") {
 
-    @play20.welcome(message, style = "Java")
+    <p>@message</p>
 
 }

@@ -7,3 +7,6 @@ GET     /                           controllers.Home.showHomePage()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+#GET		/baker/pli_report			controllers.PliReport.showReport()
+#GET		/baker/functional_table		controllers.Home.showFunctionalTable()
