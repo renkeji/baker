@@ -1,6 +1,6 @@
 package models;
 
-import java.util.List;
+import java.util.Map;
 
 import play.db.ebean.Model;
 
@@ -9,7 +9,7 @@ public class Company extends Model {
 	private String name;
 	private String country;
 	private String description;
-	private List<Property> properties;
+	private Map<String, Property> properties;
 	
 	public Company(String name, String country, String description) {
 		this.name = name;
