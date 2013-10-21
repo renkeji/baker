@@ -1,33 +1,20 @@
 package models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.util.List;
 
 import play.db.ebean.Model;
 
-@Entity
 public class Company extends Model {
 	
-	@Id
-	private Long companyId;
 	private String name;
 	private String country;
 	private String description;
+	private List<Property> properties;
 	
 	public Company(String name, String country, String description) {
 		this.name = name;
 		this.country = country;
 		this.description = description;
-	}
-	
-	public static Model.Finder<Long, Company> find = new Model.Finder(Long.class, Company.class);
-	
-	public Long getCompanyId() {
-		return companyId;
-	}
-
-	public void setCompanyId(Long companyId) {
-		this.companyId = companyId;
 	}
 
 	public String getName() {
@@ -53,6 +40,15 @@ public class Company extends Model {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public List<Property> getProperties() {
+		return properties;
+	}
+
+	public void setProperties(List<Property> properties) {
+		this.properties = properties;
+	}
+	
 	
 	
 }

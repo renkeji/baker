@@ -5,6 +5,7 @@ import play.mvc.Result;
 
 import models.*;
 
+import utils.SpreadSheetParser;
 import views.html.*;
 
 import java.io.*;
@@ -18,7 +19,7 @@ import org.apache.poi.ss.usermodel.Cell;
 public class Home extends Controller {
 	
 	public static Result showHomePage() {
-		
+		/*
 		StringBuilder sb = new StringBuilder();
 		
 		try {
@@ -61,8 +62,8 @@ public class Home extends Controller {
 		} catch (IOException e) {
 			sb.append(e.getMessage());
 		}
-		
-		return ok(index.render(sb.toString()));
+		*/
+		return ok(index.render(SpreadSheetParser.test()));
 	}
 	
 	public static Result showPliReport() {
