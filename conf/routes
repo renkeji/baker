@@ -3,10 +3,12 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Home.showHomePage()
+GET     /                           controllers.Home.showPage()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
-#GET		/baker/pli_report			controllers.PliReport.showReport()
-#GET		/baker/functional_table		controllers.Home.showFunctionalTable()
+GET		/baker/pli_report			controllers.PliReport.showPage()
+GET		/baker/pli_report/data		controllers.PliReport.getData()
+GET		/baker/functional_table		controllers.FunctionalTable.showPage()
+GET		/baker/company_report/:id	controllers.CompanyReport.showPage(id: Int)

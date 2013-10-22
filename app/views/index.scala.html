@@ -1,4 +1,3 @@
-@**
 @(companies: List[Company])
 
 @main("Baker & McKenzie") {
@@ -22,7 +21,7 @@
 	    		@companies.map { company =>
 	    			<tr>
 	    			<td>@company.getCompanyId()</td>
-	    			<td><a href = "/baker/plireport/@company.getCompanyId()">
+	    			<td><a href = "/baker/company_report/@company.getCompanyId()">
 	    				@company.getName()
 	    				</a>
 	    			</td>
@@ -31,14 +30,5 @@
 	    		}
 	    </table>
     </div>
-
-}
-**@
-
-@(message: String)
-
-@main("Baker & McKenzie") {
-
-    <p>@message</p>
 
 }

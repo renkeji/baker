@@ -1,0 +1,23 @@
+@(message: String)
+
+@main("Baker & McKenzie") {
+	<div id = "pli-title">
+		<p> PROFIT LEVEL INDICATOR BENCHMARK REPORT </p>
+	</div>
+	<div id = "pli-bar-chart-title">
+		<spam id = "left"> Set = 5 Great China Comparable Companies </spam>
+		<spam id = "middle"> 2012 </spam>
+		<spam id = "right"> PLI = OM% </spam>
+	</div>
+    <div class = "bar-chart" id = "pli-bar-chart">
+    	<script>
+    		var value = { data: [[3.54, 'jan', '#f3f3f3'], [2.98, 'feb', '#f4f4f4'], [-1.78, 'feb', '#f4f4f4']]}; 
+    		$(function() { 
+				$("div[id = 'pli-bar-chart']").jqBarGraph(value);
+			});
+    	</script>
+    </div>
+    <div id = "pli-mini-table">
+    </div>
+    
+}
