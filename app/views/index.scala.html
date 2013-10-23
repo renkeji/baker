@@ -20,12 +20,12 @@
 	    	</tr>
 	    		@companies.map { company =>
 	    			<tr>
-	    			<td>@company.getCompanyId()</td>
-	    			<td><a href = "/baker/company_report/@company.getCompanyId()">
-	    				@company.getName()
-	    				</a>
-	    			</td>
-	    			<td>@company.getCountry()</td>
+		    			<td>@company.getCompanyId()</td>
+		    			<td><a href = "/baker/company_report/@company.getCompanyId()">
+		    				@company.getName()
+		    				</a>
+		    			</td>
+		    			<td>@company.getCountry()</td>
 	    			</tr>
 	    		}
 	    </table>

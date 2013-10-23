@@ -1,6 +1,7 @@
-@(message: String)
+@(companies: List[Company], pliData: List[Double])
 
 @main("Baker & McKenzie") {
+<div id = "pli-body">
 	<div id = "pli-title">
 		<p> PROFIT LEVEL INDICATOR BENCHMARK REPORT </p>
 	</div>
@@ -17,7 +18,35 @@
 			});
     	</script>
     </div>
+  
     <div id = "pli-mini-table">
+    	<table>
+    		<tr>
+    			<th>Benchmark Metrics</th>
+    		</tr>
+    		<tr><td>Count</td><td>@pliData.size()</td></tr>
+    		<tr><td>Count with PLI</td><td>@pliData.size()</td></tr>
+    		<tr><td>Upper Quartile</td><td> </td></tr>
+    		<tr><td>Median</td><td> </td></tr>
+    		<tr><td>Lower Quartile</td><td> </td></tr>
+    	</table>
     </div>
-    
+ 
+    <div id = "pli-table">
+    	<table>
+	    	<tr>
+	    		<th>No.</th>
+	    		<th>Comapny Name</th>
+	    		<th> </th>
+	    	</tr>
+	    	@for(i <- 0 to 4) {
+	    		</tr>
+	    			<td>@companies(i).getCompanyId()</td>
+	    			<td>@companies(i).getName()</td>
+	    			<td>@pliData(i)</td>
+	    		</tr>
+	    	}
+    	</table>
+    </div>
+</div>
 }

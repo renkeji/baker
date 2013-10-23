@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import models.Company;
 import models.Figure;
@@ -20,11 +22,13 @@ import play.Logger;
 
 public class SpreadSheetParser {
 	
-	private static final Logger logger = new Logger();
+	/*
+	 * TODO: Not good code below, get rid of this container in the future
+	 */
+	private static final List<Double> pliData = new ArrayList<Double>(); 
+	private static final SpreadSheet spreadSheet = new SpreadSheet();
 	
 	public static SpreadSheet parseSheet(String fileName) {
-		
-		SpreadSheet newSheet = new SpreadSheet();
 		
 		try {
 			// Read the source spreadsheet
@@ -50,14 +54,14 @@ public class SpreadSheetParser {
 							break;
 						case Cell.CELL_TYPE_NUMERIC:
 							if (!isHeader) {
-								String colName = newSheet.getHeader().get(colIndex);
+								String colName = spreadSheet.getHeader().get(colIndex);
 								Double cellValue = cell.getNumericCellValue();
-								Company currCompany = newSheet.getCompanies().get(rowIndex-1);
+								Company currCompany = spreadSheet.getCompanies().get(rowIndex-1);
 								String prefix = NameExtractor.extractName(colName)[0];
 								String suffix = NameExtractor.extractName(colName)[1];
 									
 								if (prefix == null) {
-									logger.error("DEBUG 1: Shouldn't be here");
+									Logger.error("DEBUG 1: Shouldn't be here");
 								}
 								if (prefix != null && currCompany.getProperties().containsKey(prefix)) {
 									if (suffix != null && suffix.matches(".*Avg.*")) {
@@ -73,27 +77,33 @@ public class SpreadSheetParser {
 									currCompany.getProperties().get(prefix).getFigures().add(newFigure);
 									currCompany.getProperties().get(prefix).getFigureIndex().put(suffix, newFigure);
 								}
+								/*
+								 * TODO: Not good code below, get rid of it together with the pliData container
+								 */
+								if (prefix != null && colName.matches(".*OM%\\s*2011\\s*")) {
+									pliData.add(cellValue);
+								}
 							} else {
-								logger.error("DEBUG 2: Shouldn't be here");
+								Logger.error("DEBUG 2: Shouldn't be here");
 							}
 							break;
 						case Cell.CELL_TYPE_STRING:
 							String cellValue = cell.getStringCellValue();
 							if (!isHeader) {
-								String colName = newSheet.getHeader().get(colIndex);
+								String colName = spreadSheet.getHeader().get(colIndex);
 								if (colName.matches(".*Company.*")) {
 									Company newCompany = new Company();
 									newCompany.setName(cellValue);
 									newCompany.setCompanyId(cell.getRowIndex());
-									newSheet.getCompanies().add(newCompany);
-									newSheet.getCompanyIndex().put(cellValue, newCompany);
+									spreadSheet.getCompanies().add(newCompany);
+									spreadSheet.getCompanyIndex().put(cellValue, newCompany);
 								} else if (colName.matches(".*Country.*")) {
-									newSheet.getCompanies().get(rowIndex-1).setCountry(cellValue);
+									spreadSheet.getCompanies().get(rowIndex-1).setCountry(cellValue);
 								} else if (colName.matches(".*Description.*")) {
-									newSheet.getCompanies().get(rowIndex-1).setDescription(cellValue);
+									spreadSheet.getCompanies().get(rowIndex-1).setDescription(cellValue);
 								} 
 							} else {
-								newSheet.getHeader().add(cellValue);
+								spreadSheet.getHeader().add(cellValue);
 							}
 							break;
 					}
@@ -102,12 +112,20 @@ public class SpreadSheetParser {
 			}
 			file.close();
 		} catch (FileNotFoundException e) {
-			logger.error(e.getMessage());
+			Logger.error(e.getMessage());
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			Logger.error(e.getMessage());
 		}
 		
-		return newSheet;
+		return spreadSheet;
+	}
+
+	public static List<Double> getPliData() {
+		return pliData;
+	}
+
+	public static SpreadSheet getSpreadSheet() {
+		return spreadSheet;
 	}
 	
 }

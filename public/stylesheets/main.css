@@ -64,6 +64,24 @@ a, a:active, a:focus {
 	font-size: 15px;
 }
 
+#pli-body {
+	width: 100%;
+}
+
+#pli-bar-chart {
+	width: 45%;
+	float: left;
+}
+
+#pli-mini-table {
+	width: 45%;
+	float: right;
+}
+
+#pli-table {
+	float: left;
+	display: block;
+}	
 /**
  * Table Styles
  */

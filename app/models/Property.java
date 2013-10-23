@@ -10,9 +10,9 @@ import play.db.ebean.Model;
 
 public class Property extends Model {
 	private String name;
-	private Map<String, Figure> figureIndex;
 	private Double avg;
 	private List<Figure> figures;
+	private Map<String, Figure> figureIndex;
 	
 	public Property(String name) {
 		super();
