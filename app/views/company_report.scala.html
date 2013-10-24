@@ -1,7 +1,25 @@
 @(message: String)
 
 @main("Baker & McKenzie") {
+	
+	<script>
+		$(function() {
+			$(window).load(function() {
+				$("li[id='company_report']").addClass("highlight");
+			});
+		});
 
-    <p>@message</p>
+		$(function() {
+			$(window).unload(function() {
+				$(["class *= 'highlight'"]).removeClass("highlight");
+			});
+		});
+	</script>
+	<div id = "description">
+		@Html(message)
+   	</div>
+   	
+   	<div id = "comapny-table">
+   	</div>
 
 }

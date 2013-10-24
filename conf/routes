@@ -9,6 +9,6 @@ GET     /                           controllers.Home.showPage()
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 GET		/baker/pli_report			controllers.PliReport.showPage()
-GET		/baker/pli_report/data		controllers.PliReport.sendData()
 GET		/baker/functional_table		controllers.FunctionalTable.showPage()
+GET		/baker/company_report		controllers.CompanyReport.showAllPage()
 GET		/baker/company_report/:id	controllers.CompanyReport.showPage(id: Int)

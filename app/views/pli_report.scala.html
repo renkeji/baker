@@ -1,4 +1,4 @@
-@(companies: List[Company], pliData: List[Double])
+@(companies: List[Company], pliData: List[Double], quartiles: List[Double])
 
 @main("Baker & McKenzie") {
 <div id = "pli-body">
@@ -12,9 +12,9 @@
 	</div>
     <div class = "bar-chart" id = "pli-bar-chart">
     	<script>
-    		var value = { data: [[3.54, 'jan', '#f3f3f3'], [2.98, 'feb', '#f4f4f4'], [-1.78, 'feb', '#f4f4f4']]}; 
-    		$(function() { 
-				$("div[id = 'pli-bar-chart']").jqBarGraph(value);
+    		$(function() {
+    			var value = [[@quartiles(2), 'Upper Quartile', '#f3f3f3'], [@quartiles(1), 'Median', '#f3f3f3'], [@quartiles(0), 'Lower Quartile', '#f3f3f3']];
+				$("div[id = 'pli-bar-chart']").jqBarGraph( {data : value} );
 			});
     	</script>
     </div>
@@ -24,11 +24,11 @@
     		<tr>
     			<th>Benchmark Metrics</th>
     		</tr>
-    		<tr><td>Count</td><td>@pliData.size()</td></tr>
+    		<tr><td>Count</td><td>@companies.size()</td></tr>
     		<tr><td>Count with PLI</td><td>@pliData.size()</td></tr>
-    		<tr><td>Upper Quartile</td><td> </td></tr>
-    		<tr><td>Median</td><td> </td></tr>
-    		<tr><td>Lower Quartile</td><td> </td></tr>
+    		<tr><td>Upper Quartile</td><td>@quartiles(2)</td></tr>
+    		<tr><td>Median</td><td>@quartiles(1)</td></tr>
+    		<tr><td>Lower Quartile</td><td>@quartiles(0)</td></tr>
     	</table>
     </div>
  
@@ -39,7 +39,7 @@
 	    		<th>Comapny Name</th>
 	    		<th> </th>
 	    	</tr>
-	    	@for(i <- 0 to 4) {
+	    	@for(i <- 0 to companies.size()-1) {
 	    		</tr>
 	    			<td>@companies(i).getCompanyId()</td>
 	    			<td>@companies(i).getName()</td>

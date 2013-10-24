@@ -25,7 +25,7 @@ public class SpreadSheetParser {
 	/*
 	 * TODO: Not good code below, get rid of this container in the future
 	 */
-	private static final List<Double> pliData = new ArrayList<Double>(); 
+	private static final ArrayList<Double> pliData = new ArrayList<Double>(); 
 	private static final SpreadSheet spreadSheet = new SpreadSheet();
 	
 	public static SpreadSheet parseSheet(String fileName) {
@@ -81,6 +81,7 @@ public class SpreadSheetParser {
 								 * TODO: Not good code below, get rid of it together with the pliData container
 								 */
 								if (prefix != null && colName.matches(".*OM%\\s*2011\\s*")) {
+									Logger.warn("DEBUG 00 " + cellValue);
 									pliData.add(cellValue);
 								}
 							} else {
@@ -100,7 +101,7 @@ public class SpreadSheetParser {
 								} else if (colName.matches(".*Country.*")) {
 									spreadSheet.getCompanies().get(rowIndex-1).setCountry(cellValue);
 								} else if (colName.matches(".*Description.*")) {
-									spreadSheet.getCompanies().get(rowIndex-1).setDescription(cellValue);
+									spreadSheet.getCompanies().get(rowIndex-1).setDescription(Formater.formatDescription(cellValue));
 								} 
 							} else {
 								spreadSheet.getHeader().add(cellValue);
@@ -120,7 +121,7 @@ public class SpreadSheetParser {
 		return spreadSheet;
 	}
 
-	public static List<Double> getPliData() {
+	public static ArrayList<Double> getPliData() {
 		return pliData;
 	}
 
