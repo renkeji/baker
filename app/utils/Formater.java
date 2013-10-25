@@ -9,7 +9,7 @@ public class Formater {
 		if ( number == Math.floor(number) && !Double.isInfinite(number) ) {
 		    df = new DecimalFormat("#");
 		} else {
-			df = new DecimalFormat("#.##");
+			df = new DecimalFormat("#.###");
 		}
 		return Double.parseDouble(df.format(number));
 	}
