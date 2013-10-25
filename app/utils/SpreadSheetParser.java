@@ -55,7 +55,7 @@ public class SpreadSheetParser {
 						case Cell.CELL_TYPE_NUMERIC:
 							if (!isHeader) {
 								String colName = spreadSheet.getHeader().get(colIndex);
-								Double cellValue = cell.getNumericCellValue();
+								Double cellValue = Formater.formatDouble(cell.getNumericCellValue());
 								Company currCompany = spreadSheet.getCompanies().get(rowIndex-1);
 								String prefix = NameExtractor.extractName(colName)[0];
 								String suffix = NameExtractor.extractName(colName)[1];
@@ -81,7 +81,6 @@ public class SpreadSheetParser {
 								 * TODO: Not good code below, get rid of it together with the pliData container
 								 */
 								if (prefix != null && colName.matches(".*OM%\\s*2011\\s*")) {
-									Logger.warn("DEBUG 00 " + cellValue);
 									pliData.add(cellValue);
 								}
 							} else {

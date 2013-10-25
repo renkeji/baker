@@ -1,4 +1,5 @@
-@(message: String)
+@(company: Company)
+@import math._
 
 @main("Baker & McKenzie") {
 	
@@ -14,12 +15,65 @@
 				$(["class *= 'highlight'"]).removeClass("highlight");
 			});
 		});
+		$(function() {
+			$('button').click(function() {
+				$(this).closest("tr").toggle('on off');
+			});
+		});
 	</script>
 	<div id = "description">
-		@Html(message)
+		<table id = "company-report-desc">
+			<tr><th class = "company-report-title">@company.getName()</th></tr>
+			<tr><th class = "company-report-title">Business Description</th></tr>
+			<tr><td>@Html(company.getDescription())</td></tr>
+		</table>
    	</div>
    	
-   	<div id = "comapny-table">
+   	<div>
+   		<table id = "company-table">
+	   		<tr>
+	   			<th>P&L (th US$)</th>
+	   			<th>2011</th>
+	   			<th>2010</th>
+	   			<th>2009</th>
+	   			<th>3-Year Avg.</th>
+	   			<th> </th>
+	   		</tr>
+	   		@for(property <- company.getProperties().values()) {
+	   			<tr id = "@property.getName()">
+	   				<td>@property.getName()</td>
+	   				@for(figure <- property.getFigures()) {
+	   					@if(figure.getValue() < 0.0) {
+	   						@if(figure.getValue().toInt == figure.getValue()) {
+	   							<td style="color:red">(@math.abs(figure.getValue().toInt))</td>
+	   						} else {
+	   							<td style="color:red">(@math.abs(figure.getValue()))</td>
+	   						}
+	   					} else {
+	   						@if(figure.getValue().toInt == figure.getValue()) {
+	   							<td>@figure.getValue().toInt</td>
+	   						} else {
+	   							<td>@figure.getValue()</td>
+	   						}
+	   					}
+	   				} 
+	   				@if(property.getAvg() < 0.0) {
+	   					@if(property.getAvg().toInt == property.getAvg()) {
+	   						<td style="color:red">(@math.abs(property.getAvg().toInt))</td>
+	   					} else {
+	   						<td style="color:red">(@math.abs(property.getAvg()))</td>
+	   					}
+	   				} else {
+	   					@if(property.getAvg().toInt == property.getAvg()) {
+	   						<td>@property.getAvg().toInt</td>
+	   					} else {
+	   						<td>@property.getAvg()</td>
+	   					}
+	   				}
+	   				<td><button type = "button" class = "btn btn-danger">Hide</button></td>
+	   			</tr>
+	   		}
+   		</table>
    	</div>
 
 }

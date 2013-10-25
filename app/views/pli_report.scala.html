@@ -1,52 +1,80 @@
 @(companies: List[Company], pliData: List[Double], quartiles: List[Double])
+@import math._
 
 @main("Baker & McKenzie") {
-<div id = "pli-body">
-	<div id = "pli-title">
-		<p> PROFIT LEVEL INDICATOR BENCHMARK REPORT </p>
+	<div id = "pli-body">
+		<table class = "pli-top-tables" id = "pli-top-title1">
+			<tr><th>PROFIT LEVEL INDICATOR BENCHMARK REPORT</th><tr>
+		</table>
+		<table class = "pli-top-tables" id = "pli-top-title2">
+			<tr>
+				<th id = "col1">Set = 5 Great China Comparable Companies</th>
+				<th id = "col2">2011</th>
+				<th id = "col3">PLI = OM%</th>
+			</tr>
+		</table>
+		<table class = "pli-top-tables">	
+		    <tr>
+		    	<td><div id = "pli-bar-chart">
+		    		<script>
+			    		$(function() {
+			    			var value = [[@quartiles(2), 'Upper Quartile', '#d9534f'], [@quartiles(1), 'Median', '#d9534f'], [@quartiles(0), 'Lower Quartile', '#d9534f']];
+							$("div[id = 'pli-bar-chart']").jqBarGraph( {data : value, width : 300} );
+						});
+		    		</script>
+		    	</div></td>
+			    <td id = "td-pli-mini-table">
+			    	<table id = "pli-mini-table">
+			    		<tr>
+			    			<th colspan = "2">Benchmark Metrics</th>
+			    		</tr>
+			    		<tr><td>Count</td><td>@companies.size()</td></tr>
+			    		<tr><td>Count with PLI</td><td>@pliData.size()</td></tr>
+			    		<tr><td>Upper Quartile</td>
+			    			@if(quartiles(2) < 0.0) {
+			    				<td style="color:red">(@math.abs(quartiles(2)))</td>
+			    			} else {
+			    				<td>@quartiles(2)</td>
+			    			}
+			    		</tr>
+			    		<tr><td>Median</td>
+			    			@if(quartiles(1) < 0.0) {
+			    				<td style="color:red">(@math.abs(quartiles(1)))</td>
+			    			} else {
+			    				<td>@quartiles(1)</td>
+			    			}
+			    		</tr>
+			    		<tr><td>Lower Quartile</td>
+			    			@if(quartiles(0) < 0.0) {
+			    				<td style="color:red">(@math.abs(quartiles(0)))</td>
+			    			} else {
+			    				<td>@quartiles(0)</td>
+			    			}
+			    		</tr>
+			    	</table>
+			    </td>
+			</tr>
+	 	</table>
+	 	
+	    <div>
+	    	<table id = "pli-table">
+		    	<tr>
+		    		<th>No.</th>
+		    		<th>Comapny Name</th>
+		    		<th> </th>
+		    	</tr>
+		    	@for(i <- 0 to companies.size()-1) {
+		    		</tr>
+		    			<td id = "pli-table-col1">@companies(i).getCompanyId()</td>
+		    			<td id = "pli-table-col2"><a href = "/baker/company_report/@companies(i).getCompanyId()">@companies(i).getName()</td>
+		    			@if(pliData(i) < 0.0) {
+	    					<td id = "pli-table-col3" style="color:red">(@math.abs(pliData(i)))</td>
+	    				} else {
+	    					<td id = "pli-table-col3">@pliData(i)</td>
+	    				}
+		    		</tr>
+		    	}
+	    	</table>
+	    </div>
 	</div>
-	<div id = "pli-bar-chart-title">
-		<spam id = "left"> Set = 5 Great China Comparable Companies </spam>
-		<spam id = "middle"> 2012 </spam>
-		<spam id = "right"> PLI = OM% </spam>
-	</div>
-    <div class = "bar-chart" id = "pli-bar-chart">
-    	<script>
-    		$(function() {
-    			var value = [[@quartiles(2), 'Upper Quartile', '#f3f3f3'], [@quartiles(1), 'Median', '#f3f3f3'], [@quartiles(0), 'Lower Quartile', '#f3f3f3']];
-				$("div[id = 'pli-bar-chart']").jqBarGraph( {data : value} );
-			});
-    	</script>
-    </div>
-  
-    <div id = "pli-mini-table">
-    	<table>
-    		<tr>
-    			<th>Benchmark Metrics</th>
-    		</tr>
-    		<tr><td>Count</td><td>@companies.size()</td></tr>
-    		<tr><td>Count with PLI</td><td>@pliData.size()</td></tr>
-    		<tr><td>Upper Quartile</td><td>@quartiles(2)</td></tr>
-    		<tr><td>Median</td><td>@quartiles(1)</td></tr>
-    		<tr><td>Lower Quartile</td><td>@quartiles(0)</td></tr>
-    	</table>
-    </div>
- 
-    <div id = "pli-table">
-    	<table>
-	    	<tr>
-	    		<th>No.</th>
-	    		<th>Comapny Name</th>
-	    		<th> </th>
-	    	</tr>
-	    	@for(i <- 0 to companies.size()-1) {
-	    		</tr>
-	    			<td>@companies(i).getCompanyId()</td>
-	    			<td>@companies(i).getName()</td>
-	    			<td>@pliData(i)</td>
-	    		</tr>
-	    	}
-    	</table>
-    </div>
-</div>
 }

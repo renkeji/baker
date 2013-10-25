@@ -1,5 +1,23 @@
 @(companies: List[Company])
 
 @main("Baker & McKenzie") {
-	<p>Hello</p>
+	<div class = "body-page">
+	    <table id = "body-page-table">
+	    	<tr>
+	    		<th>No.</th>
+	    		<th>Company Name</th>
+	    		<th>Country/Region</th>
+	    	</tr>
+	    		@companies.map { company =>
+	    			<tr>
+		    			<td>@company.getCompanyId()</td>
+		    			<td><a href = "/baker/company_report/@company.getCompanyId()">
+		    				@company.getName()
+		    				</a>
+		    			</td>
+		    			<td>@company.getCountry()</td>
+	    			</tr>
+	    		}
+	    </table>
+    </div>
 }

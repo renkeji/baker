@@ -32,9 +32,6 @@ public class PliReport extends Controller {
 //		for (int i = 0; i < companies.size(); ++i) {
 //			pliData.put(companies.get(i), plis.get(i));
 //		}
-		for (Double d : plis) {
-			Logger.warn("DEBUG: " + d);
-		}
 		List<Double> quartiles = CalculateQuartiles.calculateQuartiles(plis);
 		return ok(pli_report.render(companies, plis, quartiles));
 	}
