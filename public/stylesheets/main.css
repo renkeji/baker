@@ -11,8 +11,8 @@ a, a:active, a:focus {
 }
 
 .header img {
-	height: 100px;
-	width: auto;
+	width: 100%;
+	margin-bottom: 20px;
 }
 
 .title {
